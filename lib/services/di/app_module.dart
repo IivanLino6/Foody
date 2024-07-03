@@ -3,11 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stripe_payment/data/repository/auth_repository_impl.dart';
+import 'package:stripe_payment/data/repository/order_repository_impl.dart';
 import 'package:stripe_payment/data/repository/post_repository_impl.dart';
 import 'package:stripe_payment/data/repository/user_repository_impl.dart';
+import 'package:stripe_payment/domain/repository/orders_repository.dart';
 import 'package:stripe_payment/domain/repository/post_repository.dart';
 import 'package:stripe_payment/domain/repository/user_repository.dart';
 import 'package:stripe_payment/domain/use%20case/auth/reset_passw_usecase.dart';
+import 'package:stripe_payment/domain/use%20case/order/order_usescases.dart';
+import 'package:stripe_payment/domain/use%20case/order/register_order_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/add_cart_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/create_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/delete_usecase.dart';
@@ -59,8 +63,8 @@ abstract class AppModule {
   @Named('Posts')
   @injectable
   Reference get postStorageRef => firebaseStorage.ref().child('Posts');
-    //Firebase Storage Post
-  @Named('Posts')
+  //Firebase Storage Post
+  @Named('Order')
   @injectable
   Reference get ordersStorageRef => firebaseStorage.ref().child('Orders');
 
@@ -77,7 +81,7 @@ abstract class AppModule {
   @injectable
   CollectionReference get cartCollection =>
       firebaseFirestore.collection("Cart");
-    @Named('Cart')
+  @Named('Orders')
   @injectable
   CollectionReference get ordersCollection =>
       firebaseFirestore.collection("Orders");
@@ -98,6 +102,10 @@ abstract class AppModule {
   @injectable
   PostRepository get postRepository =>
       PostRepositoryImpl(postsCollection, postStorageRef, cartCollection);
+
+  @Environment('Repositories')
+  @injectable
+  OrdersRepository get orderRepository => OrderRepositoryImpl(ordersCollection);
 
   //@Environment('UseCases')
   @injectable
@@ -126,7 +134,11 @@ abstract class AppModule {
         addToCart: AddToCartUseCase(postRepository),
         getCart: GetCartUseCase(postRepository),
       );
+  //@Environment('UseCases')
+  @injectable
+  OrderUsesCases get orderUsesCases =>
+      OrderUsesCases(registerOrder: RegisterOrderUseCase(orderRepository));
 
   @injectable
-  CartViewModel get cartViewModel => CartViewModel(postUsesCases,authUseCases);
+  CartViewModel get cartViewModel => CartViewModel(postUsesCases, authUseCases);
 }

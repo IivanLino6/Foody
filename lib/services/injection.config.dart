@@ -13,18 +13,22 @@ import 'package:firebase_auth/firebase_auth.dart' as _i4;
 import 'package:firebase_storage/firebase_storage.dart' as _i6;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:stripe_payment/domain/repository/auth_repository.dart' as _i11;
-import 'package:stripe_payment/domain/repository/post_repository.dart' as _i13;
-import 'package:stripe_payment/domain/repository/user_repository.dart' as _i12;
+import 'package:stripe_payment/domain/repository/auth_repository.dart' as _i12;
+import 'package:stripe_payment/domain/repository/orders_repository.dart'
+    as _i15;
+import 'package:stripe_payment/domain/repository/post_repository.dart' as _i14;
+import 'package:stripe_payment/domain/repository/user_repository.dart' as _i13;
 import 'package:stripe_payment/domain/use%20case/auth/auth_usecase.dart' as _i7;
+import 'package:stripe_payment/domain/use%20case/order/order_usescases.dart'
+    as _i10;
 import 'package:stripe_payment/domain/use%20case/post/post_usecase.dart' as _i9;
 import 'package:stripe_payment/domain/use%20case/post/update_post_image_usecase.dart'
-    as _i14;
+    as _i16;
 import 'package:stripe_payment/domain/use%20case/user/user_usecase.dart' as _i8;
-import 'package:stripe_payment/services/di/app_module.dart' as _i15;
+import 'package:stripe_payment/services/di/app_module.dart' as _i17;
 import 'package:stripe_payment/services/di/firebase_service.dart' as _i3;
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart'
-    as _i10;
+    as _i11;
 
 const String _Repositories = 'Repositories';
 
@@ -50,7 +54,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i7.AuthUseCases>(() => appModule.authUseCases);
     gh.factory<_i8.UserUseCase>(() => appModule.userUseCases);
     gh.factory<_i9.PostUsesCases>(() => appModule.postUsesCases);
-    gh.factory<_i10.CartViewModel>(() => appModule.cartViewModel);
+    gh.factory<_i10.OrderUsesCases>(() => appModule.orderUsesCases);
+    gh.factory<_i11.CartViewModel>(() => appModule.cartViewModel);
     gh.factory<_i6.Reference>(
       () => appModule.postStorageRef,
       instanceName: 'Posts',
@@ -58,6 +63,14 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i5.CollectionReference<Object?>>(
       () => appModule.postsCollection,
       instanceName: 'Posts',
+    );
+    gh.factory<_i6.Reference>(
+      () => appModule.ordersStorageRef,
+      instanceName: 'Order',
+    );
+    gh.factory<_i5.CollectionReference<Object?>>(
+      () => appModule.ordersCollection,
+      instanceName: 'Orders',
     );
     gh.factory<_i6.Reference>(
       () => appModule.userStorageRef,
@@ -71,22 +84,26 @@ extension GetItInjectableX on _i1.GetIt {
       () => appModule.cartCollection,
       instanceName: 'Cart',
     );
-    gh.factory<_i11.AuthRepository>(
+    gh.factory<_i12.AuthRepository>(
       () => appModule.authRepository,
       registerFor: {_Repositories},
     );
-    gh.factory<_i12.UserRepository>(
+    gh.factory<_i13.UserRepository>(
       () => appModule.userRepository,
       registerFor: {_Repositories},
     );
-    gh.factory<_i13.PostRepository>(
+    gh.factory<_i14.PostRepository>(
       () => appModule.postRepository,
       registerFor: {_Repositories},
     );
-    gh.factory<_i14.UpdatePostImageUseCase>(
-        () => _i14.UpdatePostImageUseCase(gh<_i13.PostRepository>()));
+    gh.factory<_i15.OrdersRepository>(
+      () => appModule.orderRepository,
+      registerFor: {_Repositories},
+    );
+    gh.factory<_i16.UpdatePostImageUseCase>(
+        () => _i16.UpdatePostImageUseCase(gh<_i14.PostRepository>()));
     return this;
   }
 }
 
-class _$AppModule extends _i15.AppModule {}
+class _$AppModule extends _i17.AppModule {}

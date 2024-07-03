@@ -3,14 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:popover/popover.dart';
 import 'package:stripe_payment/domain/model/post.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_viewmodel.dart';
 import 'package:stripe_payment/widgets/custom_container.dart';
 
-class PostListItem extends StatelessWidget {
+class PostListItem extends StatefulWidget {
   Post post;
   PostListViewModel vm;
-  PostListItem(this.post, this.vm);
+  CartViewModel vmCart;
+  PostListItem(this.post, this.vm,this.vmCart);
 
+  @override
+  State<PostListItem> createState() => _PostListItemState();
+}
+
+class _PostListItemState extends State<PostListItem> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -43,7 +50,9 @@ class PostListItem extends StatelessWidget {
                         Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(vm.concatImage(post)), fit: BoxFit.cover),
+                            image: NetworkImage(
+                                widget.vm.concatImage(widget.post)),
+                            fit: BoxFit.cover),
                       ),
                       width: 100,
                     )),
@@ -53,18 +62,18 @@ class PostListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        post.name,
+                        widget.post.name,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Expanded(
                         child: Text(
-                          post.description,
+                          widget.post.description,
                           maxLines: 3,
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ),
-                      Text(post.price)
+                      Text(widget.post.price)
                     ],
                   ),
                 )
@@ -83,7 +92,7 @@ class PostListItem extends StatelessWidget {
               print('Press');
               showPopover(
                   context: context,
-                  bodyBuilder: (context) => MyPopUpMenu(post,vm),
+                  bodyBuilder: (context) => MyPopUpMenu(widget.post, widget.vm),
                   direction: PopoverDirection.bottom,
                   width: 170,
                   height: 90,
@@ -121,12 +130,15 @@ class PostListItem extends StatelessWidget {
                             10.0), // Ajusta el radio según tus preferencias
                       ),
                       backgroundColor: Colors.white,
-                      child: const Icon(
-                        Icons.add,
+                      child: Icon(
+                        widget.vmCart.isSelected(widget.post)
+                            ? Icons.check
+                            : Icons.add,
                         size: 16,
                       ),
                       onPressed: () {
-                        vm.addtoCart(post, context);
+                        widget.vm.addtoCart(widget.post, context);
+                        widget.vmCart.selectedItems(widget.post);
                       }),
                 ),
               ),
@@ -149,7 +161,7 @@ class MyPopUpMenu extends StatelessWidget {
         GestureDetector(
           onTap: () {
             vm.deletePost(post.id);
-                Navigator.pop(context);
+            Navigator.pop(context);
           },
           child: const Row(
             children: [

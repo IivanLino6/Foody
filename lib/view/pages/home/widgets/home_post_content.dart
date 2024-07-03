@@ -1,20 +1,27 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stripe_payment/domain/model/post.dart';
 import 'package:stripe_payment/utils/resources.dart';
+import 'package:stripe_payment/view/pages/home/home_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_viewmodel.dart';
 
-class HomePostContent extends StatelessWidget {
+class HomePostContent extends StatefulWidget {
   PostListViewModel vm;
   CartViewModel vmCart;
 
   HomePostContent(this.vm, this.vmCart, {super.key});
 
   @override
+  State<HomePostContent> createState() => _HomePostContentState();
+}
+
+class _HomePostContentState extends State<HomePostContent> {
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: vm.getPosts(),
+        stream: widget.vm.getPosts(),
         builder: ((context, snapshot) {
           final response = snapshot.data;
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -36,6 +43,7 @@ class HomePostContent extends StatelessWidget {
           }
           final postList = response as Success<List<Post>>;
           return ListView.builder(
+            key: PageStorageKey<String>('list_view'),    //Keep the same position on ListView when the user add an item
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
               itemCount: postList.data.length,
@@ -75,10 +83,12 @@ class HomePostContent extends StatelessWidget {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                postList.data[index].description,
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 10),
+                              Expanded(
+                                child: Text(
+                                  postList.data[index].description,
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 10),
+                                ),
                               ),
                               Text(postList.data[index].price)
                             ],
@@ -90,7 +100,7 @@ class HomePostContent extends StatelessWidget {
                         top: 0,
                         left: 20,
                         child: Image.network(
-                          vm.concatImage(postList.data[index]),
+                          widget.vm.concatImage(postList.data[index]),
                           height: 100,
                           width: 120,
                         )),
@@ -109,12 +119,16 @@ class HomePostContent extends StatelessWidget {
                                     10.0), // Ajusta el radio según tus preferencias
                               ),
                               backgroundColor: Colors.white,
-                              child: const Icon(
-                                Icons.add,
+                              child: Icon(
+                                widget.vmCart.isSelected(postList.data[index])
+                                    ? Icons.check
+                                    : Icons.add,
                                 size: 16,
                               ),
                               onPressed: () {
-                                vmCart.addToCart(postList.data[index]);
+                                widget.vmCart.addToCart(postList.data[index]);
+                                widget.vmCart
+                                    .selectedItems(postList.data[index]);
                               }),
                         ),
                       ),

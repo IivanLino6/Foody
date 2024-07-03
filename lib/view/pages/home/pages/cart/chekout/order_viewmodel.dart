@@ -3,16 +3,21 @@ import 'package:provider/provider.dart';
 import 'package:stripe_payment/domain/model/cart_list.dart';
 import 'package:stripe_payment/domain/model/post.dart';
 import 'package:stripe_payment/domain/use%20case/auth/auth_usecase.dart';
+import 'package:stripe_payment/domain/use%20case/order/order_usescases.dart';
+import 'package:stripe_payment/utils/resources.dart';
 import 'package:stripe_payment/view/pages/home/navigator_bottom_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/chekout/widget/order_state.dart';
 
 class OrderViewModel extends ChangeNotifier {
   AuthUseCases _authUseCases;
-  CartViewModel _vmCart;
+  OrderUsesCases _orderUseCases;
   OrderState _state = OrderState();
 
-  OrderViewModel(this._authUseCases, this._vmCart);
+  Resource _response = Init();
+  Resource get response => _response;
+
+  OrderViewModel(this._authUseCases, this._orderUseCases);
 
   double _totalAmount = 0;
   double get totalAmount => _totalAmount;
@@ -74,10 +79,17 @@ class OrderViewModel extends ChangeNotifier {
     return result;
   }
 
-
-
-  void createOrder(List<CartList> cartList) {
+  createOrder(List<CartList> cartList) {
     String createdDate = DateTime.now().toString();
-    _state = _state.copyWith(items: cartList,createdDate: createdDate,subtotalAmount: _subTotalAmount.toString(),totalAmount: _totalAmount.toString(),costumerId: 'Hsh8282dmd02');
+    _state = _state.copyWith(
+        items: cartList,
+        createdDate: createdDate,
+        subtotalAmount: _subTotalAmount.toString(),
+        totalAmount: _totalAmount.toString(),
+        costumerId: 'Hsh8282dmd02');
+    _response = Loading();
+    notifyListeners();
+    _response = _orderUseCases.registerOrder.launch(_state.toOrder());
+    notifyListeners();
   }
 }

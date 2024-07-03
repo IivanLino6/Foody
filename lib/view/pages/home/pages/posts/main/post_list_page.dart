@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stripe_payment/domain/model/food_categories.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/widget/post_list_content.dart';
 import 'package:stripe_payment/widgets/custom_container.dart';
@@ -43,6 +44,7 @@ class _PostListPageState extends State<PostListPage>
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<PostListViewModel>(context);
+    final vmCart = Provider.of<CartViewModel>(context);
     return Stack(children: [
       Positioned.fill(
           bottom: 110,
@@ -136,7 +138,7 @@ class _PostListPageState extends State<PostListPage>
                   );
                 })),
             //Category
-            Expanded(child: Container(child: PostListContent(vm))),
+            Expanded(child: Container(child: PostListContent(vm,vmCart))),
           ]))
     ]);
   }

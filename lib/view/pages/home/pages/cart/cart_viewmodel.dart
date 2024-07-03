@@ -22,6 +22,9 @@ class CartViewModel extends ChangeNotifier {
 
   int _itemCounter = 0;
   int get itemCounter => _itemCounter; // Getter for cartList
+  
+  //List of items to know wich items are added to the cart
+  Set<String> addedItems = Set();
 
   void setCartList(List<CartList> items) {
     _cartList = items;
@@ -54,12 +57,15 @@ class CartViewModel extends ChangeNotifier {
     }
     countItems();
     Fluttertoast.showToast(msg: 'Added to cart');
-    notifyListeners();
   }
 
   void removeFromCart(Post post) {
     _cartList.removeWhere((item) => item.post == post);
+    addedItems.remove(post.id);
+    calculateTotalAmount();
+    countItems();
     notifyListeners();
+
   }
 
   void incrementCounter(Post post) {
@@ -78,7 +84,8 @@ class CartViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double calculateTotalAmount() {
+  double calculateTotalAmount() { 
+    _totalAmount = 0.0;
     double total = 0.0;
     double postPrice = 0;
     double postQuantity = 0;
@@ -105,6 +112,14 @@ class CartViewModel extends ChangeNotifier {
     return result;
   }
 
+  void selectedItems(Post post) {
+    addedItems.add(post.id);
+  }
+
+  bool isSelected(Post post){
+    return addedItems.contains(post.id);
+  }
+  
   void clearCart() {
     _cartList.clear();
     _totalAmount = 0;

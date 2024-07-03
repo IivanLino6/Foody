@@ -42,7 +42,7 @@ class OrderData {
     Map<String, dynamic> toJson() => {
         "id": id,
         "createdDate": createdDate,
-        "items": items,
+        'items': items.map((item) => item.toJson()).toList(),   //Mandamos llamar los methodos toJson
         "subtotalAmount": subtotalAmount,
         "totalAmount": totalAmount,
         "paymentMethod": paymentMethod,

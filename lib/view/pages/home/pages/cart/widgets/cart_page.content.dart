@@ -45,11 +45,11 @@ class CartPageContent extends StatelessWidget {
                     )),
               //TotalAmount
               Positioned(
-                top: 570,
+                top: 600,
                 child: Container(
                   decoration: BoxDecoration(
-                    
-                    color: Colors.black, // Set background color
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+                    color: Colors.white, // Set background color
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5), // Shadow color
@@ -60,46 +60,53 @@ class CartPageContent extends StatelessWidget {
                     ],
                   ),
                   width: MediaQuery.of(context).size.width,
-                  height: 200,
+                  height: 250,
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(left: 15),
                           child: Text('Subtotal:',
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.white,
+                                  color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.only(left: 10,right: 15),
                           child: Text(
                             '${'\$ ${vm.totalAmount}'}', // Interpolación de cadenas
                             style: const TextStyle(
                               fontSize: 18,
-                              color: Colors.white,
+                              color: Colors.grey,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
+                       
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 150,
+                left: 100,
+                right: 100,
+                child:  Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: IconCustomBtn(
-                                    color: Colors.white,
-                                    txtColor: Colors.black,
+                                    color: Colors.black,
+                                    txtColor: Colors.white,
                                     widht: 140,
                                     icon: const Icon(
                                       Icons.payment,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
-                                    txt: 'Continuar',
+                                    txt: 'Checkout',
                                     onFcn: () {
                                       // String email = vm.getUser();
                                       //double amount =vm.calculateTotalAmount();
@@ -107,15 +114,7 @@ class CartPageContent extends StatelessWidget {
                                       Navigator.pushNamed(context, 'OrderPage',
                                           arguments: vm.cartList);
                                     }),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              )
+                              ),)
             ],
           )),
     ]);

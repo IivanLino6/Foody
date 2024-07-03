@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
+import 'package:stripe_payment/domain/use%20case/order/order_usescases.dart';
 import 'package:stripe_payment/domain/use%20case/post/post_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/user/user_usecase.dart';
 import 'package:stripe_payment/view/pages/home/home_page.dart';
@@ -74,7 +75,7 @@ class MainApp extends StatelessWidget {
             create: (_) => CartViewModel(
                 locator<PostUsesCases>(), locator<AuthUseCases>())),
                 ChangeNotifierProvider(
-            create: (_) => OrderViewModel( locator<AuthUseCases>(),locator<CartViewModel>()))
+            create: (_) => OrderViewModel( locator<AuthUseCases>(),locator<OrderUsesCases>()))
       ],
       child: MaterialApp(
         initialRoute: idSession.isEmpty ? 'LoginPage' : 'NavigatorBottomPage',

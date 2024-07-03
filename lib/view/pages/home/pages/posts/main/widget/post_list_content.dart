@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:stripe_payment/domain/model/post.dart';
 import 'package:stripe_payment/utils/resources.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/widget/post_list_item.dart';
 
 class PostListContent extends StatefulWidget {
   PostListViewModel vm;
-  PostListContent(this.vm);
+  CartViewModel vmCart;
+  PostListContent(this.vm,this.vmCart, {super.key});
 
   @override
   State<PostListContent> createState() => _PostListContentState();
@@ -67,7 +69,7 @@ class _PostListContentState extends State<PostListContent> {
                     Column(
                         children:
                             List.generate(postsInCategory.length, (index) {
-                      return PostListItem(postsInCategory[index], widget.vm);
+                      return PostListItem(postsInCategory[index], widget.vm,widget.vmCart);
                     })),
                   ],
                 ),
@@ -90,10 +92,9 @@ class _PostListContentState extends State<PostListContent> {
   }
 
   double _calculateCategoryHeight(String category, List<Post> posts) {
-    double categoryHeaderHeight =
-        30.0; 
-    double postItemHeight = 120.0; 
-    double padding = 13.0; 
+    double categoryHeaderHeight = 30.0;
+    double postItemHeight = 120.0;
+    double padding = 13.0;
 
     return categoryHeaderHeight + (postItemHeight * posts.length) + padding;
   }

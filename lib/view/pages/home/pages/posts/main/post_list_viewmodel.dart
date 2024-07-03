@@ -24,6 +24,7 @@ class PostListViewModel extends ChangeNotifier {
   Stream<Resource<List<Post>>> getPosts() {
     return _postUsesCases.getPost.launch();
   }
+
   //Method added to use extension and resize the image
   String concatImage(Post post) {
     // Encuentra la posición del último punto en la cadena

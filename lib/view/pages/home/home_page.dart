@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:stripe_payment/domain/model/food_categories.dart';
 import 'package:stripe_payment/domain/model/promotions.dart';
+import 'package:stripe_payment/view/pages/home/home_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/widgets/home_post_content.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
     //HomeViewModel vm = Provider.of<HomeViewModel>(context);
     PostListViewModel vm = Provider.of<PostListViewModel>(context);
     CartViewModel vmCart = Provider.of<CartViewModel>(context);
+    HomeViewModel vmHome = Provider.of<HomeViewModel>(context);
 
     return Stack(
       children: [

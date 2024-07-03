@@ -39,13 +39,13 @@ class OrderState {
         costumerId: costumerId ?? this.costumerId,
       );
 
-  toOrder() => OrderData(
-        id: this.id,
-        costumerId: this.costumerId,
-        createdDate: this.createdDate,
-        items: this.items,
-        subtotalAmount: this.subtotalAmount,
-        totalAmount: this.totalAmount,
-        paymentMethod: this.paymentMethod,
+   toOrder() => OrderData(
+        id: id,
+        costumerId: costumerId,
+        createdDate: createdDate,
+        items: items,
+        subtotalAmount: subtotalAmount,
+        totalAmount: totalAmount,
+        paymentMethod: paymentMethod,
       );
 }

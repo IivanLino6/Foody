@@ -7,6 +7,7 @@ class HomeViewModel extends ChangeNotifier {
   PostUsesCases _postUsesCases;
   HomeViewModel(this._postUsesCases);
 
+
   Stream<Resource<List<Post>>> getPosts() => _postUsesCases.getPost.launch();
   String concatImage(Post post) {
     // Encuentra la posición del último punto en la cadena
@@ -20,5 +21,5 @@ class HomeViewModel extends ChangeNotifier {
     String result = beforeDot + '_200x200' + afterDot;
     return result;
   }
-}
 
+}

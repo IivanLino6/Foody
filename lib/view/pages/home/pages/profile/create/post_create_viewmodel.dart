@@ -29,6 +29,7 @@ class PostCreateViewModel extends ChangeNotifier {
 
   Resource _response = Init();
   Resource get response => _response;
+  
   AuthUseCases _authUseCases;
   PostUsesCases _postUsesCases;
 
