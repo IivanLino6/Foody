@@ -6,7 +6,7 @@ import 'package:stripe_payment/domain/use%20case/auth/auth_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/post_usecase.dart';
 import 'package:stripe_payment/utils/resources.dart';
 import 'package:stripe_payment/utils/validation_item.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_state.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_state.dart';
 
 enum FoodCategories {
   salads,
@@ -88,6 +88,10 @@ class PostCreateViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  changeShopName(String value){
+    _state = _state.copyWith(shopName: value);
+    notifyListeners();
+  }
   //Image picker
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();

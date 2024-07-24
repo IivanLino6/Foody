@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:stripe_payment/domain/model/user.dart';
 import 'package:stripe_payment/utils/resources.dart';
-import 'package:stripe_payment/view/pages/home/navigator_bottom_viewmodel.dart';
+import 'package:stripe_payment/view/pages/navigator_bar/navigator_bottom_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/main/profile_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/main/widgets/profile_content.dart';
 import 'package:stripe_payment/widgets/custom_btn.dart';

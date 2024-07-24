@@ -44,11 +44,11 @@ class _TextCaptionState extends State<DefaultFormField> {
         enabledBorder: UnderlineInputBorder(
             //Crea una variable para asginar propiedades de decoracion  al TextField
             borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(20)),
+            borderRadius: BorderRadius.circular(15)),
         focusedBorder: UnderlineInputBorder(
             //Crea una variable para asginar propiedades de decoracion  al TextField
             borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(20)),
+            borderRadius: BorderRadius.circular(15)),
         filled: true,
         fillColor: Colors.grey[200],
         contentPadding:

@@ -9,7 +9,7 @@ import 'package:stripe_payment/domain/use%20case/user/user_usecase.dart';
 import 'package:stripe_payment/utils/resources.dart';
 import 'package:stripe_payment/utils/validation_item.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/update/posts_update_state.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_viewmodel.dart';
 
 class PostUpdateViewModel extends ChangeNotifier {
   FoodCategories? _foodCategories;

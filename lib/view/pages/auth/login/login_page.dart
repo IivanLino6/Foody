@@ -16,35 +16,35 @@ class LoginPage extends StatelessWidget {
     //Intancia del provider
     LoginViewModel vm = Provider.of<LoginViewModel>(context);
     return Scaffold(
-        body: Stack(
-          children: [StreamBuilder(
-              stream: vm.response,
-              builder: (context, snapshot) {
-                final response = snapshot.data;
-                if (response is Loading) {
-                  return const Center(child: CircularProgressIndicator());
-                }          
-                if (response is Error) {      
-                  final data = response as Error;      
-                  Fluttertoast.showToast(
+      body: Stack(
+        children: [
+        StreamBuilder(
+            stream: vm.response,
+            builder: (context, snapshot) {
+              final response = snapshot.data;
+              if (response is Loading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (response is Error) {
+                final data = response as Error;
+                Fluttertoast.showToast(
                     msg: 'Error: ${data.error}',
                     toastLength: Toast.LENGTH_LONG,
-                    timeInSecForIosWeb: 3
-                  );                
-                } else if (response is Success) {           
-                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                    Navigator.pushAndRemoveUntil(
-                      context, 
-                      MaterialPageRoute(builder: (context) => MainApp(locator<AuthUseCases>()),), 
-                      (route) => false
-                    );   
-                  });                                     
-                }
-                return Container();
-              }),
-              LoginContent(vm)]
-        ),
-
-            );
+                    timeInSecForIosWeb: 3);
+              } else if (response is Success) {
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MainApp(locator<AuthUseCases>()),
+                      ),
+                      (route) => false);
+                });
+              }
+              return Container();
+            }),
+        LoginContent(vm)
+      ]),
+    );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stripe_payment/domain/model/post.dart';
 import 'package:stripe_payment/utils/show_actions_camera.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/update/post_update_viewmodel.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_viewmodel.dart';
 import 'package:stripe_payment/widgets/icon_button.dart';
 import 'package:stripe_payment/widgets/text_field.dart';
 

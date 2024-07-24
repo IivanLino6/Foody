@@ -12,6 +12,7 @@ import 'package:stripe_payment/domain/repository/user_repository.dart';
 import 'package:stripe_payment/domain/use%20case/auth/reset_passw_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/order/order_usescases.dart';
 import 'package:stripe_payment/domain/use%20case/order/register_order_usecase.dart';
+import 'package:stripe_payment/domain/use%20case/order/upload_receipt_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/add_cart_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/create_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/post/delete_usecase.dart';
@@ -63,7 +64,7 @@ abstract class AppModule {
   @Named('Posts')
   @injectable
   Reference get postStorageRef => firebaseStorage.ref().child('Posts');
-  //Firebase Storage Post
+  //Firebase Storage Order
   @Named('Order')
   @injectable
   Reference get ordersStorageRef => firebaseStorage.ref().child('Orders');
@@ -105,7 +106,7 @@ abstract class AppModule {
 
   @Environment('Repositories')
   @injectable
-  OrdersRepository get orderRepository => OrderRepositoryImpl(ordersCollection);
+  OrdersRepository get orderRepository => OrderRepositoryImpl(ordersCollection,ordersStorageRef);
 
   //@Environment('UseCases')
   @injectable
@@ -137,7 +138,9 @@ abstract class AppModule {
   //@Environment('UseCases')
   @injectable
   OrderUsesCases get orderUsesCases =>
-      OrderUsesCases(registerOrder: RegisterOrderUseCase(orderRepository));
+      OrderUsesCases(
+        registerOrder: RegisterOrderUseCase(orderRepository),
+        uploadReceipt: UploadReceiptUseCase(orderRepository));
 
   @injectable
   CartViewModel get cartViewModel => CartViewModel(postUsesCases, authUseCases);

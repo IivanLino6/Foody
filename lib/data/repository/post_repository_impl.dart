@@ -130,4 +130,20 @@ class PostRepositoryImpl implements PostRepository {
       return Error(e.message ?? 'Unknow error');
     }
   }
+  
+  @override
+  Stream<Resource<List<Post>>> getPostbyShopName(String shopName){
+    try {
+      //Get the data from Firebase
+      final data = _postRef.where('shopName', isEqualTo:shopName ).snapshots(includeMetadataChanges: true);
+      final dataMap = data.map((document) => Success(document.docs.map((post) {
+            final id = post.id;
+            final map = {...post.data() as Map<String, dynamic>, 'id': id};
+            return Post.fromJson(map);
+          }).toList()));
+      return dataMap;
+    } on FirebaseException catch (e) {
+      throw Error(e.message ?? 'Unknow error');
+    }
+  }
 }

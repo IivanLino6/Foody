@@ -108,9 +108,6 @@ class CartPageContent extends StatelessWidget {
                                     ),
                                     txt: 'Checkout',
                                     onFcn: () {
-                                      // String email = vm.getUser();
-                                      //double amount =vm.calculateTotalAmount();
-                                      // vmStripe.initPayment(email, amount, context);
                                       Navigator.pushNamed(context, 'OrderPage',
                                           arguments: vm.cartList);
                                     }),

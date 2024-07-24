@@ -6,6 +6,7 @@ class PostsCreateState {
   ValidationItem name;
   ValidationItem description;
   ValidationItem price;
+  String shopName;
   File? image;
   String category;
   String idUser;
@@ -14,6 +15,7 @@ class PostsCreateState {
   PostsCreateState(
       {this.name = const ValidationItem(),
       this.description = const ValidationItem(),
+      this.shopName = '',
       this.image,
       this.category = 'CATEGORIES',
       this.idUser = '',
@@ -24,6 +26,7 @@ class PostsCreateState {
       name: name.value,
       description: description.value,
       price: price.value,
+      shopName: shopName,
       category: category,
       idUser: idUser);
 
@@ -36,7 +39,8 @@ class PostsCreateState {
         description.error.isNotEmpty ||
         image == null ||
         category.isEmpty ||
-        idUser.isEmpty) {
+        idUser.isEmpty
+        || shopName.isEmpty) {
       return false;
     }
     return true;
@@ -46,6 +50,7 @@ class PostsCreateState {
           {ValidationItem? name,
           ValidationItem? description,
           ValidationItem? price,
+          String? shopName,
           File? image,
           String? category,
           String? idUser,
@@ -53,6 +58,7 @@ class PostsCreateState {
       PostsCreateState(
         name: name ?? this.name,
         description: description ?? this.description,
+        shopName: shopName ?? this. shopName,
         price: price ?? this.price,
         image: image ?? this.image,
         category: category ?? this.category,

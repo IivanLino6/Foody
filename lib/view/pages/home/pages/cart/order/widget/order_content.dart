@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stripe_payment/domain/model/cart_list.dart';
-import 'package:stripe_payment/view/pages/home/pages/cart/chekout/order_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/order/order_viewmodel.dart';
 import 'package:stripe_payment/widgets/icon_button.dart';
 
 // ignore: must_be_immutable
@@ -175,8 +175,7 @@ class OrderContent extends StatelessWidget {
                 onFcn: () {
                   String email = vm.getUser();
                   double amount = vm.calculateTotalAmount();
-                  vm.initPayment(email, amount, context);
-                  vm.createOrder(checkoutList);
+                  vm.initPayment(email, amount, context,checkoutList);
                 }),
           ),
         )

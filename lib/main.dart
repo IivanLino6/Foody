@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:injectable/injectable.dart';
 import 'package:provider/provider.dart';
 import 'package:stripe_payment/domain/use%20case/order/order_usescases.dart';
 import 'package:stripe_payment/domain/use%20case/post/post_usecase.dart';
 import 'package:stripe_payment/domain/use%20case/user/user_usecase.dart';
 import 'package:stripe_payment/view/pages/home/home_page.dart';
 import 'package:stripe_payment/view/pages/home/home_viewmodel.dart';
-import 'package:stripe_payment/view/pages/home/navigator_bottom_viewmodel.dart';
+import 'package:stripe_payment/view/pages/navigator_bar/navigator_bottom_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_page.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
-import 'package:stripe_payment/view/pages/home/pages/cart/chekout/order_page.dart';
-import 'package:stripe_payment/view/pages/home/pages/cart/chekout/order_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/order/order_page.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/order/order_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/receipt/receipt_page.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/receipt/receipt_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/receipt/widgets/pdf_page.dart';
+import 'package:stripe_payment/view/pages/home/pages/cart/receipt/widgets/uber_page.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20restaurant/restaurant_create_page.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20restaurant/restaurant_create_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/main/profile_page.dart';
 import 'package:stripe_payment/domain/use%20case/auth/auth_usecase.dart';
 import 'package:stripe_payment/services/injection.dart';
@@ -18,13 +25,13 @@ import 'package:stripe_payment/view/pages/auth/login/login_page.dart';
 import 'package:stripe_payment/view/pages/auth/login/login_viewmodel.dart';
 import 'package:stripe_payment/view/pages/auth/register/register_page.dart';
 import 'package:stripe_payment/view/pages/auth/register/register_viewmodel.dart';
-import 'package:stripe_payment/view/pages/home/navigator_bottom%20page.dart';
+import 'package:stripe_payment/view/pages/navigator_bar/navigator_bottom%20page.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/main/post_list_page.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/update/post_update_page.dart';
 import 'package:stripe_payment/view/pages/home/pages/posts/update/post_update_viewmodel.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_page.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_page.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/main/profile_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/update/profile_update_page.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/update/profile_update_viewmodel.dart';
@@ -75,7 +82,11 @@ class MainApp extends StatelessWidget {
             create: (_) => CartViewModel(
                 locator<PostUsesCases>(), locator<AuthUseCases>())),
                 ChangeNotifierProvider(
-            create: (_) => OrderViewModel( locator<AuthUseCases>(),locator<OrderUsesCases>()))
+            create: (_) => OrderViewModel( locator<AuthUseCases>(),locator<OrderUsesCases>())),
+            ChangeNotifierProvider(
+            create: (_) => ReceiptViewModel(locator<OrderUsesCases>())),
+            ChangeNotifierProvider(
+            create: (_) => RestaurantCreateViewModel())
       ],
       child: MaterialApp(
         initialRoute: idSession.isEmpty ? 'LoginPage' : 'NavigatorBottomPage',
@@ -91,6 +102,10 @@ class MainApp extends StatelessWidget {
           'CartPage': (_) => CartPage(),
           'ProfilePage': (_) => ProfilePage(),
           'OrderPage': (_) => OrderPage(),
+          'ReceiptPage': (_) => ReceiptPage(),
+          'PdfPage': (_) => PdfPage(),
+          'UberReceiptPage': (_) => UberReceiptPage(),
+          'RestaurantCreatePage': (_) => RestaurantCreatePage(),
         },
         debugShowCheckedModeBanner: false,
       ),

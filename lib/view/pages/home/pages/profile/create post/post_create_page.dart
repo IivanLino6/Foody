@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/posts_create_response.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/widgets/post_create_content.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/posts_create_response.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/widgets/post_create_content.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_viewmodel.dart';
 
 class PostCreatePage extends StatelessWidget {
   const PostCreatePage({super.key});

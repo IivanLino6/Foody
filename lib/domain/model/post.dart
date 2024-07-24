@@ -13,6 +13,7 @@ class Post {
   String description;
   String idUser;
   String category;
+  String shopName;
   List<String> likes;
   UserData? userData;
 
@@ -24,6 +25,7 @@ class Post {
       this.description = '',
       this.idUser = '',
       this.category = '',
+      this.shopName = '',
       this.likes = const [],
       this.userData});
 
@@ -33,6 +35,7 @@ class Post {
         name: json["name"] ?? '',
         price: json["price"] ?? '',
         description: json["description"] ?? '',
+        shopName: json["shopName"] ?? '',
         idUser: json["id_user"] ?? '',
         category: json["category"] ?? '',
         likes: json["likes"] != null ? List.from(json["likes"]) : [],
@@ -44,6 +47,7 @@ class Post {
         "name": name,
         "price": price,
         "description": description,
+        "shopName": shopName,
         "id_user": idUser,
         "category": category,
         'likes': likes,

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stripe_payment/utils/show_actions_camera.dart';
-import 'package:stripe_payment/view/pages/home/pages/profile/create/post_create_viewmodel.dart';
+import 'package:stripe_payment/view/pages/home/pages/profile/create%20post/post_create_viewmodel.dart';
 import 'package:stripe_payment/widgets/text_field.dart';
 
 class PostCreateContent extends StatelessWidget {
@@ -83,6 +83,15 @@ class PostCreateContent extends StatelessWidget {
                 txt: 'Description',
                 onChanged: (value) {
                   vm.changeDescription(value);
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: DefaultFormField(
+              controller: vm.priceController,
+                txt: 'Shop Name',
+                onChanged: (value) {
+                  vm.changeShopName(value);
                 }),
           ),
           //const Text('Select your category'),

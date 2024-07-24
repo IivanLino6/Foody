@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:stripe_payment/view/pages/home/navigator_bottom_viewmodel.dart';
+import 'package:stripe_payment/view/pages/navigator_bar/navigator_bottom_viewmodel.dart';
 import 'package:stripe_payment/view/pages/home/pages/cart/cart_viewmodel.dart';
 
 class HomeBottomBar extends StatelessWidget {

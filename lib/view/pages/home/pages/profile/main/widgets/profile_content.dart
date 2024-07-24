@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
-import 'package:popover/popover.dart';
 import 'package:stripe_payment/domain/model/user.dart';
 import 'package:stripe_payment/domain/use%20case/auth/auth_usecase.dart';
 import 'package:stripe_payment/main.dart';
 import 'package:stripe_payment/services/injection.dart';
-import 'package:stripe_payment/view/pages/home/navigator_bottom_viewmodel.dart';
-import 'package:stripe_payment/view/pages/home/pages/posts/main/widget/post_list_item.dart';
 import 'package:stripe_payment/view/pages/home/pages/profile/main/profile_viewmodel.dart';
 import 'package:stripe_payment/widgets/icon_button.dart';
 
@@ -37,7 +33,7 @@ class ProfileContent extends StatelessWidget {
                     fontSize: 22,
                     fontWeight: FontWeight.bold))),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         //Profile info
         Padding(
@@ -188,7 +184,7 @@ class ProfileContent extends StatelessWidget {
                       ],
                     )),
               ),
-              //Payment
+              //Bussisness Info
               GestureDetector(
                 onTap: () {},
                 child: Container(
@@ -217,7 +213,7 @@ class ProfileContent extends StatelessWidget {
                             width: 30,
                           ),
                         ),
-                        Text('Payment')
+                        Text('Info')
                       ],
                     )),
               ),
@@ -266,7 +262,7 @@ class ProfileContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 12),
           child: Container(
-            height: 300,
+            
             width: 370,
             decoration: BoxDecoration(
               borderRadius:
@@ -453,16 +449,56 @@ class ProfileContent extends StatelessWidget {
                     ),
                   ),
                 ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'RestaurantCreatePage');
+                    },
+                    child: Container(
+                      //color: Colors.amber,
+                      height: 50,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.add_outlined, color: Colors.grey),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Add Restaurant',
+                                  style: TextStyle(fontSize: 16)),
+                              Text(
+                                'Register a new Restaurant',
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(Icons.arrow_forward_ios),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
         //Space
         SizedBox(
-          height: 45,
+          height: 5,
         ),
-        //Logout Btn
-        IconCustomBtn(
+         IconCustomBtn(
             icon: Icon(Icons.logout),
             txt: 'Logout',
             onFcn: () {
@@ -474,6 +510,8 @@ class ProfileContent extends StatelessWidget {
                   ),
                   (route) => false);
             })
+        //Logout Btn
+       
       ],
     );
   }

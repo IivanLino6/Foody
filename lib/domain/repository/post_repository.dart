@@ -11,4 +11,5 @@ abstract class PostRepository {
   Future<Resource<String>> updateWithImage(Post post, File image);
   Stream<Resource<List<Post>>> getPost();
   Stream<Resource<List<Post>>> getCart();
+  Stream<Resource<List<Post>>> getPostbyShopName(String shopName);
 }
